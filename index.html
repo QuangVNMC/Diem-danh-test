@@ -8,7 +8,6 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
         #qrcode { margin: 20px auto; width: 200px; height: 200px; }
-        .expired { filter: grayscale(100%); opacity: 0.5; }
         #timer { font-size: 18px; color: red; font-weight: bold; }
     </style>
 </head>
@@ -16,7 +15,6 @@
 
     <h2>Mã QR động - Google Forms</h2>
     <div id="qrcode"></div>
-    <p id="status">Mã QR còn hiệu lực</p>
     <p id="timer">Thời gian còn lại: <span id="countdown">10</span> giây</p>
 
     <script>
@@ -26,12 +24,10 @@
         });
 
         function generateQRCode() {
-            let uniqueCode = "?session=" + Math.random().toString(36).substring(7); // Tạo mã session ngẫu nhiên
-            let qrUrl = "https://forms.gle/TfJqzxMBxwjT5jrYA" + uniqueCode; // Thêm session vào URL
+            let uniqueSession = Math.random().toString(36).substring(7); // Tạo mã session ngẫu nhiên
+            let qrUrl = "https://forms.gle/TfJqzxMBxwjT5jrYA?session=" + uniqueSession; // Thêm session vào URL
             qrcode.clear();
             qrcode.makeCode(qrUrl);
-            document.getElementById("qrcode").classList.remove("expired");
-            document.getElementById("status").innerText = "Mã QR còn hiệu lực";
             startCountdown();
         }
 
@@ -45,14 +41,12 @@
                 countdown.innerText = timeLeft;
                 if (timeLeft <= 0) {
                     clearInterval(timer);
-                    document.getElementById("qrcode").classList.add("expired");
-                    document.getElementById("status").innerText = "Mã QR đã hết hạn!";
+                    generateQRCode(); // Khi đếm ngược về 0, tạo mã QR mới ngay lập tức
                 }
             }, 1000);
         }
 
         generateQRCode(); // Tạo mã QR đầu tiên
-        setInterval(generateQRCode, 10000); // Tạo mã QR mới mỗi 10 giây
     </script>
 
 </body>
