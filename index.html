@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã QR động - Google Forms</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        #qrcode { margin: 20px auto; width: 200px; height: 200px; }
+        .expired { filter: grayscale(100%); opacity: 0.5; }
+        #timer { font-size: 18px; color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Mã QR động - Google Forms</h2>
+    <div id="qrcode"></div>
+    <p id="status">Mã QR còn hiệu lực</p>
+    <p id="timer">Thời gian còn lại: <span id="countdown">10</span> giây</p>
+
+    <script>
+        let qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 200,
+            height: 200
+        });
+
+        function generateQRCode() {
+            let uniqueCode = "?session=" + Math.random().toString(36).substring(7); // Tạo mã session ngẫu nhiên
+            let qrUrl = "https://forms.gle/TfJqzxMBxwjT5jrYA" + uniqueCode; // Thêm session vào URL
+            qrcode.clear();
+            qrcode.makeCode(qrUrl);
+            document.getElementById("qrcode").classList.remove("expired");
+            document.getElementById("status").innerText = "Mã QR còn hiệu lực";
+            startCountdown();
+        }
+
+        function startCountdown() {
+            let timeLeft = 10;
+            let countdown = document.getElementById("countdown");
+            countdown.innerText = timeLeft;
+
+            let timer = setInterval(() => {
+                timeLeft--;
+                countdown.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById("qrcode").classList.add("expired");
+                    document.getElementById("status").innerText = "Mã QR đã hết hạn!";
+                }
+            }, 1000);
+        }
+
+        generateQRCode(); // Tạo mã QR đầu tiên
+        setInterval(generateQRCode, 10000); // Tạo mã QR mới mỗi 10 giây
+    </script>
+
+</body>
+</html>
