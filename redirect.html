@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điểm danh</title>
+    <script>
+        function checkAccess() {
+            let params = new URLSearchParams(window.location.search);
+            let session = params.get("session");
+
+            // Lấy mã QR hợp lệ từ localStorage (chỉ có trang tạo QR cập nhật mã này)
+            let validSession = localStorage.getItem("validQR");
+
+            if (session === validSession) {
+                window.location.href = "https://forms.gle/TfJqzxMBxwjT5jrYA"; // Chuyển hướng nếu mã hợp lệ
+            } else {
+                document.body.innerHTML = "<h2>Mã QR đã hết hạn!</h2>";
+            }
+        }
+
+        checkAccess();
+    </script>
+</head>
+<body>
+</body>
+</html>
