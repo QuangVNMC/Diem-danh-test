@@ -9,7 +9,7 @@
             let params = new URLSearchParams(window.location.search);
             let session = params.get("session");
 
-            // Lấy mã QR hợp lệ từ localStorage (chỉ có trang tạo QR cập nhật mã này)
+            // Lấy mã QR hợp lệ từ localStorage
             let validSession = localStorage.getItem("validQR");
 
             if (session === validSession) {
