@@ -9,11 +9,11 @@
             let params = new URLSearchParams(window.location.search);
             let session = params.get("session");
 
-            // Lấy mã QR hợp lệ từ localStorage
-            let validSession = localStorage.getItem("validQR");
+            // Lấy mã QR hợp lệ từ sessionStorage (thay vì localStorage)
+            let validSession = sessionStorage.getItem("validQR");
 
             if (session === validSession) {
-                window.location.href = "https://forms.gle/TfJqzxMBxwjT5jrYA"; // Chuyển hướng nếu mã hợp lệ
+                window.location.href = "https://forms.gle/k1X6PysUwd8QVCpH8"; // Link Google Forms
             } else {
                 document.body.innerHTML = "<h2>Mã QR đã hết hạn!</h2>";
             }
