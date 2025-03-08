@@ -26,7 +26,7 @@
         function generateQRCode() {
             let uniqueSession = Math.random().toString(36).substring(7); // Tạo mã session ngẫu nhiên
             sessionStorage.setItem("validQR", uniqueSession); // Lưu mã hợp lệ vào Session Storage
-            let githubUsername = "ten-github"; // Thay bằng username GitHub của bạn
+            let githubUsername = "QuangVNMC"; // Thay bằng username GitHub của bạn
             let repoName = "Diem-danh-test"; // Thay bằng tên repo của bạn
             let qrUrl = `https://${githubUsername}.github.io/${repoName}/redirect.html?session=${uniqueSession}`;
 
