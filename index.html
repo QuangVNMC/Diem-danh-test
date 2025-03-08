@@ -25,7 +25,9 @@
 
         function generateQRCode() {
             let uniqueSession = Math.random().toString(36).substring(7); // Tạo mã session ngẫu nhiên
-            let qrUrl = "https://forms.gle/TfJqzxMBxwjT5jrYA?session=" + uniqueSession; // Thêm session vào URL
+            localStorage.setItem("validQR", uniqueSession); // Lưu mã hợp lệ vào trình duyệt
+            let qrUrl = "redirect.html?session=" + uniqueSession; // Dùng trang trung gian
+
             qrcode.clear();
             qrcode.makeCode(qrUrl);
             startCountdown();
